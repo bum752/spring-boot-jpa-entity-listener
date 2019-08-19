@@ -1,5 +1,7 @@
 package com.example.entitylistener.entity;
 
+import com.example.entitylistener.listener.PasswordUpdateListener;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -9,7 +11,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table
-@EntityListeners(value = {AuditingEntityListener.class})
+@EntityListeners(value = {AuditingEntityListener.class, PasswordUpdateListener.class})
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
 
     @Id
@@ -27,5 +34,10 @@ public class Member {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    private LocalDateTime passwordUpdatedAt;
+
+    @Transient
+    private String prePassword;
 
 }
